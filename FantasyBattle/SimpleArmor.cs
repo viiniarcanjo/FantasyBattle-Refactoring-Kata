@@ -1,6 +1,6 @@
 namespace FantasyBattle
 {
-    public class SimpleArmor : Armor
+    public class SimpleArmor : IArmor
     {
         public SimpleArmor(int damageSoak)
         {

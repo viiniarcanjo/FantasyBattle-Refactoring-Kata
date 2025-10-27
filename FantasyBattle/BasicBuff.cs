@@ -1,6 +1,6 @@
 namespace FantasyBattle
 {
-    public class BasicBuff : Buff
+    public class BasicBuff : IBuff
     {
         public BasicBuff(float soakModifier, float damageModifier)
         {

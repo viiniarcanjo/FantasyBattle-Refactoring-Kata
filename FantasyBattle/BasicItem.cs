@@ -1,6 +1,6 @@
 namespace FantasyBattle
 {
-    public class BasicItem : Item
+    public class BasicItem : IItem
     {
         public BasicItem(string name, int baseDamage, float damageModifier)
         {

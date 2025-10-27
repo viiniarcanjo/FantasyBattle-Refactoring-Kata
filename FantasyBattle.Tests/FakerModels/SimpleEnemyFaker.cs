@@ -10,7 +10,7 @@ public sealed class SimpleEnemyFaker : Faker<SimpleEnemy>
         CustomInstantiator(f =>
             new SimpleEnemy(
                 new SimpleArmorFaker().Generate(),
-                new BasicBuffFaker().Generate(2).ToList<Buff>()
+                new BasicBuffFaker().Generate(2).ToList<IBuff>()
             )
         );
     }

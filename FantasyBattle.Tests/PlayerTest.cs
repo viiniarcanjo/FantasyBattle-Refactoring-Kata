@@ -8,51 +8,24 @@ namespace FantasyBattle.Tests
 {
     public class PlayerTest
     {
-
         // choose this one if you are familiar with mocks
         [Fact]
-        public void DamageCalculationsWithMocks() {
-            var leftHand = new Mock<Item>();
-            leftHand.Setup(i => i.BaseDamage).Returns(5);
-            leftHand.Setup(i => i.DamageModifier).Returns(0.08f);
-
-            var rightHand = new Mock<Item>();
-            rightHand.Setup(i => i.BaseDamage).Returns(5);
-            rightHand.Setup(i => i.DamageModifier).Returns(0.08f);
-
-            var head = new Mock<Item>();
-            head.Setup(i => i.BaseDamage).Returns(4);
-            head.Setup(i => i.DamageModifier).Returns(0.08f);
-
-            var feet = new Mock<Item>();
-            feet.Setup(i => i.BaseDamage).Returns(4);
-            feet.Setup(i => i.DamageModifier).Returns(0.08f);
-
-            var chest = new Mock<Item>();
-            chest.Setup(i => i.BaseDamage).Returns(4);
-            chest.Setup(i => i.DamageModifier).Returns(0.08f);
-
-            var equipment = new Equipment(
-                leftHand.Object,
-                rightHand.Object,
-                head.Object,
-                feet.Object,
-                chest.Object);
-
+        public void DamageCalculationsWithMocks()
+        {
+            // By applying the Law of Demeter, testing became a lot easier, cause now we only need
+            // to mock the methods behavior, instead of the whole chain of properties.
             var inventory = new Mock<Inventory>();
-            inventory.Setup(inv => inv.Equipment).Returns(equipment);
-
+            inventory.Setup(inv => inv.CalculateBaseDamage()).Returns(22);
+            inventory.Setup(e => e.CalculateBaseDamageModifier()).Returns(0.4f);
+            
             var stats = new Mock<Stats>();
             stats.Setup(s => s.Strength).Returns(1);
-
-            var armor = new Mock<Armor>();
-            armor.Setup(a => a.DamageSoak).Returns(1);
             
             var target = new Mock<SimpleEnemy>();
-            target.Setup(x => x.Armor).Returns(armor.Object);
-            target.Setup(x => x.Buffs).Returns(new List<Buff>());
+            target.Setup(x => x.GetSoak()).Returns(1);
 
             var damage = new Player(inventory.Object, stats.Object).CalculateDamage(target.Object);
+            
             Assert.Equal(10, damage.Amount);
         }
 

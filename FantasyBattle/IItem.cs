@@ -1,6 +1,6 @@
 ﻿namespace FantasyBattle
 {
-    public interface Item
+    public interface IItem
     {
         int BaseDamage { get; }
         float DamageModifier { get; }
